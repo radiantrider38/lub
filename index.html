@@ -17,6 +17,7 @@
             height: 100vh;
             width: 100vw;
             margin: 0;
+            touch-action: manipulation;
         }
 
         .bg-base {
@@ -47,15 +48,15 @@
         .carousel-viewport {
             position: relative;
             width: 100%;
-            height: 35vh; 
-            min-height: 250px;
+            height: 40vh; 
+            min-height: 220px;
             max-height: 400px;
             display: flex;
             align-items: center;
             justify-content: center;
-            perspective: 1200px;
+            perspective: 1000px;
             overflow: visible;
-            margin-bottom: 4rem;
+            margin-bottom: 2rem;
         }
 
         .carousel-track {
@@ -70,12 +71,12 @@
 
         .card {
             position: absolute;
-            width: 200px;
-            height: 280px;
+            width: 180px;
+            height: 250px;
             border-radius: 16px;
             background-size: cover;
             background-position: center;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
             cursor: pointer;
             box-shadow: 0 15px 35px rgba(0,0,0,0.5);
             border: 1px solid rgba(255,255,255,0.1);
@@ -89,21 +90,21 @@
             -webkit-backdrop-filter: blur(6px);
         }
 
-        .card.active { transform: translate3d(0, 0, 200px); z-index: 10; opacity: 1; border-color: rgba(255,255,255,0.4); }
-        .card.prev { transform: translate3d(-220px, 0, 0) rotateY(30deg); z-index: 5; opacity: 0.7; filter: brightness(0.5); }
-        .card.next { transform: translate3d(220px, 0, 0) rotateY(-30deg); z-index: 5; opacity: 0.7; filter: brightness(0.5); }
-        .card.prev-far { transform: translate3d(-400px, 0, -100px) rotateY(45deg); z-index: 2; opacity: 0.3; filter: brightness(0.3); }
-        .card.next-far { transform: translate3d(400px, 0, -100px) rotateY(-45deg); z-index: 2; opacity: 0.3; filter: brightness(0.3); }
-        .card.hidden { opacity: 0; transform: translate3d(0, 0, -300px); pointer-events: none; }
+        .card.active { transform: translate3d(0, 0, 150px); z-index: 10; opacity: 1; border-color: rgba(255,255,255,0.4); }
+        .card.prev { transform: translate3d(-160px, 0, -50px) rotateY(25deg); z-index: 5; opacity: 0.6; filter: brightness(0.6); }
+        .card.next { transform: translate3d(160px, 0, -50px) rotateY(-25deg); z-index: 5; opacity: 0.6; filter: brightness(0.6); }
+        .card.prev-far { transform: translate3d(-300px, 0, -150px) rotateY(40deg); z-index: 2; opacity: 0.2; filter: brightness(0.3); }
+        .card.next-far { transform: translate3d(300px, 0, -150px) rotateY(-40deg); z-index: 2; opacity: 0.2; filter: brightness(0.3); }
+        .card.hidden { opacity: 0; transform: translate3d(0, 0, -400px); pointer-events: none; }
 
         .card-info span { font-size: 10px; opacity: 0.8; text-transform: uppercase; font-weight: 700; letter-spacing: 1px; }
 
         .active-dot { width: 8px; height: 8px; background: #f39c12; border-radius: 50%; display: inline-block; margin-right: 8px; box-shadow: 0 0 10px #f39c12; }
-        .hero-title { font-size: clamp(2rem, 7vh, 4.5rem); line-height: 0.85; }
+        .hero-title { font-size: clamp(2.5rem, 10vh, 4.5rem); line-height: 0.85; }
 
         .nav-dot {
-            width: 7px;
-            height: 7px;
+            width: 6px;
+            height: 6px;
             border-radius: 50%;
             background: rgba(255, 255, 255, 0.2);
             cursor: pointer;
@@ -112,15 +113,20 @@
 
         .nav-dot.active {
             background: #f39c12;
-            transform: scale(1.3);
+            transform: scale(1.4);
             box-shadow: 0 0 10px #f39c12;
         }
 
-        @media (max-width: 768px) {
-            .card { width: 150px; height: 210px; }
-            .card.prev { transform: translate3d(-130px, 0, 0) rotateY(30deg); }
-            .card.next { transform: translate3d(130px, 0, 0) rotateY(-30deg); }
+        /* Mobile specific adjustments */
+        @media (max-width: 640px) {
+            .card { width: 140px; height: 200px; }
+            .card.active { transform: translate3d(0, 0, 100px); }
+            .card.prev { transform: translate3d(-110px, 0, -30px) rotateY(20deg); }
+            .card.next { transform: translate3d(110px, 0, -30px) rotateY(-20deg); }
             .card.prev-far, .card.next-far { display: none; }
+            
+            .carousel-viewport { height: 35vh; margin-bottom: 1.5rem; }
+            .hero-desc { max-width: 80%; }
         }
     </style>
 </head>
@@ -129,47 +135,48 @@
     <div class="bg-base"></div>
     <div class="bg-glass"></div>
 
-    <main class="h-screen w-full max-w-6xl flex flex-col justify-between px-6 py-6 md:px-12 md:py-10 z-10 overflow-hidden">
+    <main class="h-screen w-full max-w-6xl flex flex-col justify-between px-6 py-8 md:px-12 md:py-10 z-10 overflow-hidden">
         
         <div class="flex-shrink-0">
-            <h4 class="uppercase tracking-[0.6em] text-[9px] mb-2 flex items-center opacity-90 font-bold">
+            <h4 class="uppercase tracking-[0.5em] text-[8px] md:text-[9px] mb-2 flex items-center opacity-90 font-bold">
                 <span class="active-dot"></span> Explore the Glimpse
             </h4>
             <h1 class="hero-title font-black uppercase mb-3 tracking-tighter">
                 Lubna <br> Marzan
             </h1>
-            <p class="hero-desc text-gray-100 text-[11px] md:text-sm font-light leading-relaxed max-w-xs opacity-80">
+            <p class="hero-desc text-gray-100 text-[10px] md:text-sm font-light leading-relaxed max-w-xs opacity-80">
                 Experience Lubna's most hidden gems with enhanced clarity.
             </p>
         </div>
 
         <div class="flex-grow flex flex-col justify-center items-center">
-            <div class="w-full flex justify-between items-center mb-2 max-w-3xl">
+            <div class="w-full flex justify-between items-center mb-4 max-w-3xl">
                 <div class="text-[8px] uppercase tracking-widest opacity-60 font-bold">Gallery Selection (30)</div>
             </div>
             
-            <div class="carousel-viewport">
+            <div class="carousel-viewport" id="viewport">
                 <div class="carousel-track" id="track"></div>
             </div>
             
-            <div class="flex flex-col items-center gap-5 w-full">
-                <div class="flex items-center gap-10">
-                    <button class="w-9 h-9 rounded-full bg-white/5 border border-white/10 flex items-center justify-center hover:bg-white/20" id="prevBtn">
+            <div class="flex flex-col items-center gap-6 w-full">
+                <div class="flex items-center gap-8">
+                    <button class="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center active:bg-white/20 hover:bg-white/10 transition-all" id="prevBtn">
                         <i class="fa-solid fa-arrow-left text-xs"></i>
                     </button>
-                    <div class="text-[9px] uppercase tracking-[0.3em] font-bold" id="counter">01 / 30</div>
-                    <button class="w-9 h-9 rounded-full bg-white/5 border border-white/10 flex items-center justify-center hover:bg-white/20" id="nextBtn">
+                    <div class="text-[10px] uppercase tracking-[0.3em] font-bold min-w-[60px] text-center" id="counter">01 / 30</div>
+                    <button class="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center active:bg-white/20 hover:bg-white/10 transition-all" id="nextBtn">
                         <i class="fa-solid fa-arrow-right text-xs"></i>
                     </button>
                 </div>
                 
-                <div class="flex gap-2 flex-wrap justify-center max-w-[200px]" id="navDots"></div>
+                <div class="flex gap-2 flex-wrap justify-center max-w-[240px]" id="navDots"></div>
             </div>
         </div>
     </main>
 
     <script>
         const track = document.getElementById('track');
+        const viewport = document.getElementById('viewport');
         const counter = document.getElementById('counter');
         const navDots = document.getElementById('navDots');
         let currentIndex = 0;
@@ -188,7 +195,12 @@
                 </div>
             `;
             
-            card.addEventListener('click', () => { currentIndex = i; updateCarousel(); });
+            card.addEventListener('click', () => { 
+                if (i !== currentIndex) {
+                    currentIndex = i; 
+                    updateCarousel(); 
+                }
+            });
             track.appendChild(card);
             
             const dot = document.createElement('div');
@@ -215,16 +227,39 @@
             counter.innerText = `${(currentIndex + 1).toString().padStart(2, '0')} / ${totalCards}`;
         }
 
-        document.getElementById('prevBtn').addEventListener('click', () => { if (currentIndex > 0) { currentIndex--; updateCarousel(); } });
-        document.getElementById('nextBtn').addEventListener('click', () => { if (currentIndex < totalCards - 1) { currentIndex++; updateCarousel(); } });
+        // Navigation
+        const next = () => { if (currentIndex < totalCards - 1) { currentIndex++; updateCarousel(); } };
+        const prev = () => { if (currentIndex > 0) { currentIndex--; updateCarousel(); } };
+
+        document.getElementById('prevBtn').addEventListener('click', prev);
+        document.getElementById('nextBtn').addEventListener('click', next);
         
+        // Touch Swiping for Smartphone
+        let touchStartX = 0;
+        let touchEndX = 0;
+
+        viewport.addEventListener('touchstart', e => {
+            touchStartX = e.changedTouches[0].screenX;
+        }, { passive: true });
+
+        viewport.addEventListener('touchend', e => {
+            touchEndX = e.changedTouches[0].screenX;
+            handleGesture();
+        }, { passive: true });
+
+        function handleGesture() {
+            const threshold = 50;
+            if (touchEndX < touchStartX - threshold) next();
+            if (touchEndX > touchStartX + threshold) prev();
+        }
+
+        // Keyboard support
         document.addEventListener('keydown', (e) => {
-            if (e.key === 'ArrowLeft' && currentIndex > 0) { currentIndex--; updateCarousel(); }
-            if (e.key === 'ArrowRight' && currentIndex < totalCards - 1) { currentIndex++; updateCarousel(); }
+            if (e.key === 'ArrowLeft') prev();
+            if (e.key === 'ArrowRight') next();
         });
 
         updateCarousel();
     </script>
 </body>
-
 </html>
