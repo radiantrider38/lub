@@ -90,7 +90,7 @@
             -webkit-backdrop-filter: blur(6px);
         }
 
-        .card.active { transform: translate3d(0, 0, 150px); z-index: 10; opacity: 1; border-color: rgba(255,255,255,0.4); }
+        .card.active { transform: translate3d(0, 0, 150px); z-index: 10; opacity: 1; border-color: rgba(255,255,255,0.4); cursor: default; }
         .card.prev { transform: translate3d(-160px, 0, -50px) rotateY(25deg); z-index: 5; opacity: 0.6; filter: brightness(0.6); }
         .card.next { transform: translate3d(160px, 0, -50px) rotateY(-25deg); z-index: 5; opacity: 0.6; filter: brightness(0.6); }
         .card.prev-far { transform: translate3d(-300px, 0, -150px) rotateY(40deg); z-index: 2; opacity: 0.2; filter: brightness(0.3); }
@@ -195,6 +195,7 @@
                 </div>
             `;
             
+            // Mouse click navigation for side cards
             card.addEventListener('click', () => { 
                 if (i !== currentIndex) {
                     currentIndex = i; 
@@ -227,7 +228,7 @@
             counter.innerText = `${(currentIndex + 1).toString().padStart(2, '0')} / ${totalCards}`;
         }
 
-        // Navigation
+        // Navigation functions
         const next = () => { if (currentIndex < totalCards - 1) { currentIndex++; updateCarousel(); } };
         const prev = () => { if (currentIndex > 0) { currentIndex--; updateCarousel(); } };
 
